@@ -41,6 +41,12 @@ function MyApp({ Component, pageProps }: AppProps) {
           integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
           crossorigin="anonymous"
         />
+        {/* AOS Animation */}
+        <link
+          href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+          rel="stylesheet"
+        />
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
       </Head>
       <Component {...pageProps} />
     </>
