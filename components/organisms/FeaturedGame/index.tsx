@@ -5,13 +5,18 @@ import GameItem from "../../molecules/GameItem";
 export default function FeaturedGame() {
   const [gameList, setGameList] = useState([]);
 
-  useEffect(async () => {
-    const response = await axios.get(
+  const getResponse = async () => {
+    const data = await axios.get(
       "https://storegg-bwa-learn.herokuapp.com/api/v1/players/landingpage"
     );
-    console.log("data: ", response.data);
-    setGameList(response.data.data);
+    // console.log("response data: ", data?.data);
+    setGameList(data.data.data);
+  };
+
+  useEffect(() => {
+    getResponse();
   }, []);
+
   return (
     <section className="featured-game pt-50 pb-50">
       <div className="container-fluid">
@@ -23,7 +28,7 @@ export default function FeaturedGame() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          {gameList.map((item) => (
+          {gameList?.map((item) => (
             <GameItem
               key={item._id}
               title={item.name}
