@@ -1,20 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { getFeaturedGame } from "../../../services/player";
 import GameItem from "../../molecules/GameItem";
 
 export default function FeaturedGame() {
   const [gameList, setGameList] = useState([]);
 
-  const getResponse = async () => {
-    const data = await axios.get(
-      "https://storegg-bwa-learn.herokuapp.com/api/v1/players/landingpage"
-    );
-    // console.log("response data: ", data?.data);
-    setGameList(data.data.data);
-  };
+  const getFeaturedGameList = useCallback(async () => {
+    const data = await getFeaturedGame();
+    setGameList(data);
+  }, [getFeaturedGame]);
 
   useEffect(() => {
-    getResponse();
+    getFeaturedGameList();
   }, []);
 
   return (
