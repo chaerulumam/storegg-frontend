@@ -2,7 +2,7 @@ import { NumericFormat } from "react-number-format";
 
 interface NominalItemProps {
   _id: string;
-  coinQuantity: string;
+  coinQuantity: number;
   coinName: string;
   price: number;
 }

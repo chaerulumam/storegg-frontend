@@ -11,3 +11,24 @@ export interface GameItemTypes {
   thumbnail: string;
   category: CategoryTypes;
 }
+
+export interface BanksTypes {
+  _id: string;
+  name: string;
+  bankName: string;
+  noRekening: string;
+}
+
+export interface PaymentTypes {
+  _id: string;
+  type: string;
+  status: string;
+  banks: BanksTypes[];
+}
+
+export interface NominalsTyeps {
+  _id: string;
+  coinQuantity: number;
+  coinName: string;
+  price: number;
+}
