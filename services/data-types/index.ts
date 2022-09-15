@@ -32,3 +32,8 @@ export interface NominalsTyeps {
   coinName: string;
   price: number;
 }
+
+export interface SignInTypes {
+  email: string;
+  password: string;
+}
