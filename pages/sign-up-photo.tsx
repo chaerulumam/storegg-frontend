@@ -8,12 +8,14 @@ export default function SignUpPhoto() {
   const [favorite, setFavorite] = useState("");
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("/icon/avatar.svg");
-  const [localForm, setLocalForm] = useState({});
+  const [localForm, setLocalForm] = useState({
+    name: "",
+    email: "",
+  });
 
   const getGameCategoryAPI = useCallback(async () => {
     const data = await getGameCategory();
 
-    console.log(data);
     setCategories(data);
     setFavorite(data[0]._id);
   }, [getGameCategory]);
