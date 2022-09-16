@@ -27,11 +27,12 @@ export async function getDetailVoucher(id: string) {
 }
 
 export async function getGameCategory() {
-  const url = `${ROOT_API}/${API_VERSION}/players/category`;
+  const URL_ENDPOINT = `players/category`;
 
-  return callAPI({
-    url,
-    method: "GET",
-    data,
-  });
+  const response = await axios.get(
+    `${ROOT_API}/${API_VERSION}/${URL_ENDPOINT}`
+  );
+  const axiosResponse = response.data;
+
+  return axiosResponse.data;
 }
