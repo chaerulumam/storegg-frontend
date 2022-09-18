@@ -23,7 +23,9 @@ export default function SignInForm() {
     } else {
       const response = await setSignIn(data);
       if (response.error) {
-        toast.error(response.message);
+        toast.error(response.message, {
+          theme: "light",
+        });
       } else {
         toast.success("Login Berhasil");
         const { token } = response.data;

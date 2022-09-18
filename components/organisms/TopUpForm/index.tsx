@@ -1,7 +1,15 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
-import { NominalsTyeps, PaymentTypes } from "../../../services/data-types";
+import {
+  BanksTypes,
+  NominalsTyeps,
+  PaymentTypes,
+} from "../../../services/data-types";
 import { NominalItem } from "./NominalItem";
 import PaymentItem from "./PaymentItem";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface TopUpFormProps {
   nominals: NominalsTyeps[];
@@ -10,13 +18,51 @@ interface TopUpFormProps {
 
 export default function TopUpForm(props: TopUpFormProps) {
   const [verifyID, setVerifyID] = useState("");
+  const [bankAccountName, setBankAccountName] = useState("");
+  const [nominalItem, setNominalItem] = useState({});
+  const [paymentItem, setPaymentItem] = useState({});
   const { nominals, payments } = props;
+
+  const router = useRouter();
+
   const onNominalItemChange = (data: NominalsTyeps) => {
-    console.log("Data: ", data);
-    localStorage.setItem("nominal-item", JSON.stringify(data));
+    setNominalItem(data);
   };
+
+  const onPaymentItemChange = (payment: PaymentTypes, bank: BanksTypes) => {
+    const data = {
+      payment,
+      bank,
+    };
+    setPaymentItem(data);
+  };
+
+  const onSubmit = () => {
+    if (
+      verifyID === "" ||
+      bankAccountName === "" ||
+      nominalItem === {} ||
+      paymentItem === {}
+    ) {
+      toast.info("Harap diisi semuanya!", {
+        theme: "light",
+        // icon: "🚀",
+      });
+    } else {
+      const data = {
+        verifyID,
+        bankAccountName,
+        nominalItem,
+        paymentItem,
+      };
+      localStorage.setItem("data-topup", JSON.stringify(data));
+      router.push("/checkout");
+    }
+  };
+
   return (
     <form action="./checkout.html" method="POST">
+      <ToastContainer />
       <div className="pt-md-50 pt-30">
         <div className="">
           <label
@@ -69,6 +115,7 @@ export default function TopUpForm(props: TopUpFormProps) {
                     bankID={bank._id}
                     type={payment.type}
                     name={bank.bankName}
+                    onChange={() => onPaymentItemChange(payment, bank)}
                   />
                 );
               });
@@ -87,20 +134,21 @@ export default function TopUpForm(props: TopUpFormProps) {
         <input
           type="text"
           className="form-control rounded-pill text-lg"
-          id="bankAccount"
-          name="bankAccount"
-          aria-describedby="bankAccount"
           placeholder="Enter your Bank Account Name"
+          value={bankAccountName}
+          onChange={(event) => setBankAccountName(event.target.value)}
         />
       </div>
       <div className="d-sm-block d-flex flex-column w-100">
-        <a
+        <buttton
+          type="button"
           href="/checkout"
           type="submit"
           className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg"
+          onClick={onSubmit}
         >
           Continue
-        </a>
+        </buttton>
       </div>
     </form>
   );
