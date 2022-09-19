@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import {
   BanksTypes,
   NominalsTyeps,
@@ -7,9 +8,6 @@ import {
 } from "../../../services/data-types";
 import { NominalItem } from "./NominalItem";
 import PaymentItem from "./PaymentItem";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 interface TopUpFormProps {
   nominals: NominalsTyeps[];
@@ -45,7 +43,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       paymentItem === {}
     ) {
       toast.info("Harap diisi semuanya!", {
-        theme: "light",
+        theme: "dark",
         // icon: "🚀",
       });
     } else {
@@ -62,7 +60,6 @@ export default function TopUpForm(props: TopUpFormProps) {
 
   return (
     <form action="./checkout.html" method="POST">
-      <ToastContainer />
       <div className="pt-md-50 pt-30">
         <div className="">
           <label
