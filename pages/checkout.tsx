@@ -1,8 +1,9 @@
+import jwtDecode from "jwt-decode";
+import Image from "next/image";
 import CheckoutConfirmation from "../components/organisms/CheckoutConfirmation";
 import CheckoutDetails from "../components/organisms/CheckoutDetails";
-import Image from "next/image";
 import { JWTPayloadTypes, UserTypes } from "../services/data-types";
-import jwtDecode from "jwt-decode";
+import CheckoutItem from "../components/organisms/CheckoutItem";
 
 interface CheckoutProps {
   user: UserTypes;
@@ -25,20 +26,7 @@ export default function Checkout(props: CheckoutProps) {
             Waktunya meningkatkan cara bermain
           </p>
         </div>
-        <div className="game-checkout d-flex flex-row align-items-center pt-md-50 pb-md-50 pt-30 pb-30">
-          <div className="pe-4">
-            <div className="cropped">
-              <img src="img/Thumbnail-3.png" className="img-fluid" alt="" />
-            </div>
-          </div>
-          <div>
-            <p className="fw-bold text-xl color-palette-1 mb-10">
-              Mobile Legends:
-              <br /> The New Battle 2021
-            </p>
-            <p className="color-palette-2 m-0">Category: Mobile</p>
-          </div>
-        </div>
+        <CheckoutItem />
         <hr />
         <CheckoutDetails />
         <CheckoutConfirmation />
