@@ -1,20 +1,25 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { setCheckout } from "../../../services/player";
+import { useRouter } from "next/router";
 
 export default function CheckoutConfirmation() {
   const [checkbox, setCheckbox] = useState(false);
-  const onSubmit = () => {
+  const router = useRouter();
+
+  const onSubmit = async () => {
     const dataItemLocal = localStorage.getItem("data-item");
     const dataTopupLocal = localStorage.getItem("data-topup");
 
     const dataItem = JSON.parse(dataItemLocal!);
     const dataTopUp = JSON.parse(dataTopupLocal!);
+
     if (!checkbox) {
-      toast.error("Pastikan anda telah melukan pembayaran!", {
+      toast.error("Pastikan anda telah melengkapi pembayaran!", {
         theme: "dark",
       });
     }
-    const dataCheckout = {
+    const data = {
       voucher: dataItem._id,
       nominal: dataTopUp.nominalItem._id,
       payment: dataTopUp.paymentItem.payment._id,
@@ -22,7 +27,17 @@ export default function CheckoutConfirmation() {
       name: dataTopUp.bankAccountName,
       accountUser: dataTopUp.verifyID,
     };
-    console.log("submit: ", dataCheckout);
+    const response = await setCheckout(data);
+    if (response.error) {
+      toast.error(response.message, {
+        theme: "dark",
+      });
+    } else {
+      toast.success("Checkout berhasil!", {
+        theme: "dark",
+      });
+      router.push("/complete-checkout");
+    }
   };
   return (
     <>
