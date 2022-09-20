@@ -1,8 +1,9 @@
 import cx from "classnames";
+import { NumericFormat } from "react-number-format";
 
 interface TableRowProps {
   title: string;
-  item: price;
+  item: string;
   category: string;
   status: "Pending" | "Success" | "Failed";
   price: number;
@@ -22,7 +23,7 @@ export default function TableRow(props: TableRowProps) {
       <th scope="row">
         <img
           className="float-start me-3 mb-lg-0 mb-3"
-          src={`/img/${image}.png`}
+          src={image}
           width="80"
           height="60"
           alt=""
@@ -37,10 +38,18 @@ export default function TableRow(props: TableRowProps) {
         </div>
       </th>
       <td>
-        <p className="fw-medium color-palette-1 m-0">{item} Gold</p>
+        <p className="fw-medium color-palette-1 m-0">{item}</p>
       </td>
       <td>
-        <p className="fw-medium text-start color-palette-1 m-0">Rp {price}</p>
+        <p className="fw-medium text-start color-palette-1 m-0">
+          <NumericFormat
+            value={price}
+            prefix="Rp. "
+            displayType="text"
+            thousandSeparator="."
+            decimalSeparator=","
+          />
+        </p>
       </td>
       <td>
         <div>
