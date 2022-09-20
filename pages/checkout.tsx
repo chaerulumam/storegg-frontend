@@ -54,7 +54,7 @@ export async function getServerSideProps({ req }: GetServerSideProps) {
     };
   }
 
-  const jwtToken = Buffer.from(token, "base64").toString("ascii");
+  const jwtToken = Buffer.from(token, "base64")toString("base64");
   const payload: JWTPayloadTypes = jwtDecode(jwtToken);
   const userFromPayload: UserTypes = payload.player;
   const URL_IMG = process.env.NEXT_PUBLIC_IMG;
