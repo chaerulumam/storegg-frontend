@@ -8,9 +8,10 @@ import TableRow from "./TableRow";
 export default function TransactionContent() {
   const [total, setTotal] = useState(0);
   const [transactions, setTransactions] = useState([]);
+  const [table, setTable] = useState("all");
 
-  const getMemberTransactionsAPI = useCallback(async () => {
-    const response = await getMemberTransactions();
+  const getMemberTransactionsAPI = useCallback(async (value) => {
+    const response = await getMemberTransactions(value);
     if (response.error) {
       toast.error(response.message);
     } else {
@@ -21,8 +22,13 @@ export default function TransactionContent() {
   }, []);
 
   useEffect(() => {
-    getMemberTransactionsAPI();
+    getMemberTransactionsAPI("all");
   }, []);
+
+  const onTableClick = (value) => {
+    setTable(value);
+    getMemberTransactionsAPI(value);
+  };
 
   const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
@@ -46,10 +52,26 @@ export default function TransactionContent() {
         <div className="row mt-30 mb-20">
           <div className="col-lg-12 col-12 main-content">
             <div id="list_status_title">
-              <ButtonTab title="All trx" active />
-              <ButtonTab title="Success" active={false} />
-              <ButtonTab title="Pending" active={false} />
-              <ButtonTab title="Failed" active={false} />
+              <ButtonTab
+                onClick={() => onTableClick("all")}
+                title="All trx"
+                active={table === "all"}
+              />
+              <ButtonTab
+                onClick={() => onTableClick("success")}
+                title="Success"
+                active={table === "success"}
+              />
+              <ButtonTab
+                onClick={() => onTableClick("pending")}
+                title="Pending"
+                active={table === "pending"}
+              />
+              <ButtonTab
+                onClick={() => onTableClick("failed")}
+                title="Failed"
+                active={table === "failed"}
+              />
             </div>
           </div>
         </div>
