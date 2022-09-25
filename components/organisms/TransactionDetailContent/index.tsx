@@ -1,10 +1,21 @@
+import { historyTransactionTypes } from "../../../services/data-types";
 import Row from "./Row";
-export default function TransactionDetailcontent() {
+
+interface TransactionsDetailContentProps {
+  data: historyTransactionTypes;
+}
+
+export default function TransactionDetailcontent(
+  props: TransactionsDetailContentProps
+) {
+  const { data } = props;
+
+  const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
         <h2 className="text-4xl fw-bold color-palette-1 mb-30">
-          Details #GG001
+          Details #{data._id}
         </h2>
         <div className="details">
           <div className="main-content main-content-card overflow-auto">
@@ -14,7 +25,7 @@ export default function TransactionDetailcontent() {
                   <div className="pe-4">
                     <div className="cropped">
                       <img
-                        src="/img/Thumbnail-3.png"
+                        src={`${IMG}/${data.historyVoucherTopup.thumbnail}`}
                         width="200"
                         height="130"
                         className="img-fluid"
@@ -24,15 +35,14 @@ export default function TransactionDetailcontent() {
                   </div>
                   <div>
                     <p className="fw-bold text-xl color-palette-1 mb-10">
-                      Mobile Legends:
-                      <br /> The New Battle 2021
+                      {data.historyVoucherTopup.gameName}
                     </p>
-                    <p className="color-palette-2 m-0">Category: Mobile</p>
+                    <p className="color-palette-2 m-0">Username: {data.name}</p>
                   </div>
                 </div>
                 <div>
                   <p className="fw-medium text-center label pending m-0 rounded-pill">
-                    Pending
+                    {data.status}
                   </p>
                 </div>
               </div>
@@ -41,13 +51,17 @@ export default function TransactionDetailcontent() {
                 <h2 className="fw-bold text-xl color-palette-1 mb-20">
                   Purchase Details
                 </h2>
-                <Row lable="Your Game ID" value="masayoshizero" />
-                <Row lable="Order ID" value="#GG001" />
-                <Row lable="Item" value="250 Diamonds" />
-                <Row lable="Price" value={4228000} />
+                <Row lable="Your Game ID" value={data.accountUser} />
+                <Row lable="Order ID" value={data._id} />
+                <Row
+                  lable="Item"
+                  value={`${data.historyVoucherTopup.coinQuantity} ${data.historyVoucherTopup.coinName}`}
+                />
+                <Row lable="Price" value={data.historyVoucherTopup.price} />
+                <Row lable="Tax 10%" value={data.tax} />
                 <Row
                   lable="Total"
-                  value={55000600}
+                  value={data.value}
                   className="color-palette-4"
                 />
               </div>

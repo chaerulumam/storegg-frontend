@@ -1,14 +1,23 @@
 import jwtDecode from "jwt-decode";
 import React from "react";
 import TransactionDetailcontent from "../../../components/organisms/TransactionDetailContent";
-import { JWTPayloadTypes, UserTypes } from "../../../services/data-types";
+import {
+  historyTransactionTypes,
+  JWTPayloadTypes,
+  UserTypes,
+} from "../../../services/data-types";
 import { getTransactionsDetail } from "../../../services/member";
 
-export default function Details({ transactionsDetail }) {
+interface DetailProps {
+  transactionsDetail: historyTransactionTypes;
+}
+
+export default function Details(props: DetailProps) {
+  const { transactionsDetail } = props;
   console.log("transaction: ", transactionsDetail);
   return (
     <section className="transactions-detail overflow-auto">
-      <TransactionDetailcontent />
+      <TransactionDetailcontent data={transactionsDetail} />
     </section>
   );
 }
