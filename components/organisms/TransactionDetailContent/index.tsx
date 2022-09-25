@@ -69,11 +69,17 @@ export default function TransactionDetailcontent(
                 <h2 className="fw-bold text-xl color-palette-1 mb-20">
                   Payment Informations
                 </h2>
-                <Row lable="Your Account Name" value="Masayoshi Angga Zero" />
-                <Row lable="Type" value="Worldwide Transfer" />
-                <Row lable="Bank Name" value="Mandiri" />
-                <Row lable="Bank Account Name" value="PT Store GG Indonesia" />
-                <Row lable="Bank Number" value="1800 - 9090 - 2021" />
+                <Row lable="Your Account Name" value={data.name} />
+                <Row lable="Type" value={data.historyPayment.type} />
+                <Row lable="Bank Name" value={data.historyPayment.bankName} />
+                <Row
+                  lable="Bank Account Name"
+                  value={data.historyPayment.name}
+                />
+                <Row
+                  lable="Bank Number"
+                  value={data.historyPayment.noRekening}
+                />
               </div>
               <div className="d-md-block d-flex flex-column w-100">
                 <a
