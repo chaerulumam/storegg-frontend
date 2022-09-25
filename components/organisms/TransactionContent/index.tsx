@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { getMemberTransactions } from "../../../services/member";
 import ButtonTab from "./ButtonTab";
 import TableRow from "./TableRow";
+import { historyTransactionTypes } from "../../../services/data-types";
 
 export default function TransactionContent() {
   const [total, setTotal] = useState(0);
@@ -93,7 +94,7 @@ export default function TransactionContent() {
                 </tr>
               </thead>
               <tbody id="list_status_item">
-                {transactions.map((transaction) => (
+                {transactions.map((transaction: historyTransactionTypes) => (
                   <TableRow
                     key={transaction._id}
                     image={`${IMG}/${transaction.historyVoucherTopup.thumbnail}`}
@@ -102,6 +103,7 @@ export default function TransactionContent() {
                     item={`${transaction.historyVoucherTopup.coinQuantity} ${transaction.historyVoucherTopup.coinName}`}
                     price={transaction.value}
                     status={transaction.status}
+                    id={transaction._id}
                   />
                 ))}
               </tbody>
